@@ -1,0 +1,90 @@
+
+
+[language-server.emmet-ls]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[language-server.eslint]
+args = ["--stdio"]
+command = "vscode-eslint-language-server"
+
+[language-server.tailwind]
+args = ["--stdio"]
+command = "tailwindcss-language-server"
+config = { userLanguages = { svelte = "html", "*.svelte " = "html" } }
+
+[language-server.eslint.config]
+format = { enable = true }
+nodePath = ""
+quiet = false
+rulesCustomizations = []
+run = "onType"
+validate = "on"
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = false } }
+codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
+experimental = { }
+problems = { shortenToSingleLine = false }
+
+[[language]]
+name = "html"
+language-servers = ["vscode-language-server", "emmet-ls", "tailwind"]
+formatter = { command = 'npx', args = ["prettier", "--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "tailwind" ]
+formatter = { command = 'npx', args = ["prettier", "--parser", "css"] }
+auto-format = true
+
+[[language]]
+name = "svelte"
+language-servers = [ "svelteserver", "tailwind", "emmet-ls", "eslint", "typescript-language-server"]
+formatter = { command = 'npx', args = ["prettier", "--parser", "svelte"] }
+auto-format = true
+
+[[language]]
+name = "vue"
+auto-format = true
+scope = "source.vue"
+injection-regex = "vue"
+file-types = ["vue"]
+language-servers = [ "eslint", "typescript-language-server", "vue-ls" ]
+formatter = {command = 'prettier', args= ["--parser", "vue"]}
+roots = ["package.json", "vue.config.js", ".prettierrc.json"]
+
+[language-server.vue-ls]
+command = "vue-language-server"
+args = ["--stdio"]
+config.hostInfo = "helix"
+config.typescript = { tsdk = "/home/matty/.asdf/installs/nodejs/22.2.0/.npm/lib/node_modules/typescript/lib" }
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+config.hostInfo = "helix"
+# config.plugins = [
+#   { name = "@vue/typescript-plugin", location = "/home/matty/.asdf/installs/nodejs/22.2.0/.npm/lib/node_modules/@vue/language-server", languages = ["vue"] }
+# ]
+config.tsserver = { path = "/home/matty/.asdf/installs/nodejs/22.2.0/.npm/lib/node_modules/typescript/lib" }
+config.plugins = [
+  { name = "@vue/typescript-plugin", location = "/home/matty/.asdf/installs/nodejs/22.2.0/.npm/lib/node_modules/@vue/language-server", languages = ["vue"] }
+]
+
+[[language]]
+name = "javascript"
+language-servers = [ "typescript-language-server", "eslint", "tailwind" ]
+formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ "typescript-language-server", "eslint", "tailwind"]
+formatter = { command = 'npx', args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+
+[[language]]
+name = "json"
+formatter = { command = 'npx', args = ["prettier", "--parser", "json"] }
+auto-format = true
